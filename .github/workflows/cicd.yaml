@@ -1,0 +1,40 @@
+name: GoSaaS DevSecOps CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  APP_NAME: gosaas
+  DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/gosass
+  GO_VERSION: "1.26"
+
+
+jobs:
+
+  # --------------------------------------------------
+  # 1. GITLEAKS - SECRET SCANNING
+  # --------------------------------------------------
+
+  gitleaks:
+    name: 1. Gitleaks Secret Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan repository for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
