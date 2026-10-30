@@ -1,0 +1,19 @@
+services:
+  gosass:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gosass:local
+    container_name: gosass-app
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
