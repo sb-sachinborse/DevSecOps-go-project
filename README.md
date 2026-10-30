@@ -17,7 +17,7 @@ go vet ./...
 go run ./cmd/server
 ```
 
-Open http://localhost:8080.
+Open http://localhost:8000.
 
 ## HTTP endpoints
 
@@ -32,7 +32,7 @@ Open http://localhost:8080.
 
 ```bash
 docker build -t gosass:local .
-docker run --rm -p 8080:8080 --name gosass-app gosass:local
+docker run --rm -p 8000:8000 --name gosass-app gosass:local
 ```
 
 Or use Compose:
