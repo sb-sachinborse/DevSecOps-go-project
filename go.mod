@@ -1,3 +1,3 @@
-module github.com/YOUR_USERNAME/gosass-devsecops
+module github.com/sb-sachinborse/gosass-devsecops
 
 go 1.26

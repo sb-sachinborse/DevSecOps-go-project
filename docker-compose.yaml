@@ -6,9 +6,9 @@ services:
     image: gosass:local
     container_name: gosass-app
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
-      PORT: "8080"
+      PORT: "8000"
     restart: unless-stopped
     read_only: true
     security_opt:
