@@ -104,3 +104,42 @@ jobs:
           name: go-coverage
           path: coverage.out
           if-no-files-found: error
+
+# --------------------------------------------------
+  # 4. SONARQUBE CODE QUALITY ANALYSIS
+  # --------------------------------------------------
+
+  sonarqube:
+    name: 4. SonarQube Analysis
+    runs-on: ubuntu-latest
+
+    needs:
+      - gitleaks
+      - trivy-fs
+      - unit-test
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: go-coverage
+
+      - name: SonarQube Scan and Quality Gate
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.go.coverage.reportPaths=coverage.out
+            -Dsonar.qualitygate.wait=true
