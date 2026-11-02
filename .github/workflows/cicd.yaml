@@ -16,7 +16,6 @@ env:
   APP_NAME: gosaas
   DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/gosass
   GO_VERSION: "1.26"
-  ACTIONS_RUNNER_FORCES_NODE20: "true" # <-- Add this line
 
 
 jobs:
