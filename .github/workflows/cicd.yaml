@@ -28,6 +28,10 @@ jobs:
     name: 1. Gitleaks Secret Scan
     runs-on: self-hosted
 
+       # 1. Enforce the Ubuntu 18.04.6 environment containerized context
+    container:
+      image: ubuntu:18.04.6
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -38,6 +42,7 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
 
   # --------------------------------------------------
   # 2. TRIVY - FILESYSTEM SCANNING
