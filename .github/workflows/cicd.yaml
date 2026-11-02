@@ -26,7 +26,7 @@ jobs:
 
   gitleaks:
     name: 1. Gitleaks Secret Scan
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout source code
@@ -45,7 +45,7 @@ jobs:
 
   trivy-fs:
     name: 2. Trivy Filesystem Scan
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: gitleaks
 
     permissions:
@@ -73,7 +73,7 @@ jobs:
 
   unit-test:
     name: 3. Go Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: trivy-fs
 
     permissions:
@@ -111,7 +111,7 @@ jobs:
 
   sonarqube:
     name: 4. SonarQube Analysis
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     needs:
       - gitleaks
