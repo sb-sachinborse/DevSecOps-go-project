@@ -30,7 +30,7 @@ jobs:
 
        # 1. Enforce the Ubuntu 18.04.6 environment containerized context
     container:
-      image: ubuntu:18.04.6
+      image: ubuntu:18.04
 
     steps:
       - name: Checkout source code
